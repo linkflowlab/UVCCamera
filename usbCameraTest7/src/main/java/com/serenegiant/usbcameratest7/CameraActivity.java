@@ -49,9 +49,9 @@ import com.serenegiant.widget.UVCCameraTextureView;
  * audio because of limitation of Android AudioRecord(only one instance of AudioRecord is available
  * on the device) now.
  */
-public final class MainActivity extends BaseActivity implements CameraDialog.CameraDialogParent {
+public final class CameraActivity extends BaseActivity implements CameraDialog.CameraDialogParent {
 	private static final boolean DEBUG = false;	// FIXME set false when production
-	private static final String TAG = "MainActivity";
+	private static final String TAG = "CameraActivity";
 
 	private static final float[] BANDWIDTH_FACTORS = { 0.5f, 0.5f };
 
@@ -72,7 +72,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_camera);
 
 		findViewById(R.id.RelativeLayout1).setOnClickListener(mOnClickListener);
 		mUVCCameraViewL = (CameraViewInterface)findViewById(R.id.camera_view_L);
@@ -80,7 +80,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
 		((UVCCameraTextureView)mUVCCameraViewL).setOnClickListener(mOnClickListener);
 		mCaptureButtonL = (ImageButton)findViewById(R.id.capture_button_L);
 		mCaptureButtonL.setOnClickListener(mOnClickListener);
-		mCaptureButtonL.setVisibility(View.INVISIBLE);
+		mCaptureButtonL.setVisibility(View.VISIBLE); // INVISIBLE
 		mHandlerL = UVCCameraHandler.createHandler(this, mUVCCameraViewL, UVCCamera.DEFAULT_PREVIEW_WIDTH, UVCCamera.DEFAULT_PREVIEW_HEIGHT, BANDWIDTH_FACTORS[0]);
 
 		mUVCCameraViewR = (CameraViewInterface)findViewById(R.id.camera_view_R);
@@ -88,7 +88,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
 		((UVCCameraTextureView)mUVCCameraViewR).setOnClickListener(mOnClickListener);
 		mCaptureButtonR = (ImageButton)findViewById(R.id.capture_button_R);
 		mCaptureButtonR.setOnClickListener(mOnClickListener);
-		mCaptureButtonR.setVisibility(View.INVISIBLE);
+		mCaptureButtonR.setVisibility(View.VISIBLE);	// INVISIBLE
 		mHandlerR = UVCCameraHandler.createHandler(this, mUVCCameraViewR, UVCCamera.DEFAULT_PREVIEW_WIDTH, UVCCamera.DEFAULT_PREVIEW_HEIGHT, BANDWIDTH_FACTORS[1]);
 
 		mUSBMonitor = new USBMonitor(this, mOnDeviceConnectListener);
@@ -144,7 +144,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
 			case R.id.camera_view_L:
 				if (mHandlerL != null) {
 					if (!mHandlerL.isOpened()) {
-						CameraDialog.showDialog(MainActivity.this);
+						CameraDialog.showDialog(CameraActivity.this);
 					} else {
 						mHandlerL.close();
 						setCameraButton();
@@ -169,7 +169,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
 			case R.id.camera_view_R:
 				if (mHandlerR != null) {
 					if (!mHandlerR.isOpened()) {
-						CameraDialog.showDialog(MainActivity.this);
+						CameraDialog.showDialog(CameraActivity.this);
 					} else {
 						mHandlerR.close();
 						setCameraButton();
@@ -199,7 +199,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
 		@Override
 		public void onAttach(final UsbDevice device) {
 			if (DEBUG) Log.v(TAG, "onAttach:" + device);
-			Toast.makeText(MainActivity.this, "USB_DEVICE_ATTACHED", Toast.LENGTH_SHORT).show();
+			Toast.makeText(CameraActivity.this, "USB_DEVICE_ATTACHED", Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
@@ -261,7 +261,7 @@ public final class MainActivity extends BaseActivity implements CameraDialog.Cam
 		@Override
 		public void onDettach(final UsbDevice device) {
 			if (DEBUG) Log.v(TAG, "onDettach:" + device);
-			Toast.makeText(MainActivity.this, "USB_DEVICE_DETACHED", Toast.LENGTH_SHORT).show();
+			Toast.makeText(CameraActivity.this, "USB_DEVICE_DETACHED", Toast.LENGTH_SHORT).show();
 		}
 
 		@Override

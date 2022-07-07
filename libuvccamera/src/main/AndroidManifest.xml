@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~  UVCCamera
   ~  library and sample to access to UVC web camera on non-rooted Android device
@@ -25,9 +26,5 @@
     package="com.serenegiant.uvccamera"
     android:versionCode="2"
     android:versionName="1.1" >
-
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="22" />
 
 </manifest>

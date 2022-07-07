@@ -23,4 +23,9 @@
   -->
 <resources>
     <string name="app_name">USBCameraTest7(dual camera)</string>
+
+    <string name="camera_access_required">Need camera permission to access UVC camera on Android 9 and above.</string>
+    <string name="camera_unavailable">Camera unavailable</string>
+    <string name="camera_permission_granted">Camera permission granted.</string>
+    <string name="camera_permission_denied">Camera permission denied by user.</string>
 </resources>
